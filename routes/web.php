@@ -4,12 +4,11 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return view('welcome');
-});
-
-
-Route::get('/', function () {
     return Inertia::render('Home', [
-        'user' => 'Developer'
+        'user' => 'Developer',
     ]);
 });
+
+Route::get('/login', function () {
+    return Inertia::render('Auth/Login');
+})->name('login');
