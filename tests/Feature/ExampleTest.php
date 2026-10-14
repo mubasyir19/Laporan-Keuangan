@@ -24,4 +24,11 @@ class ExampleTest extends TestCase
             ->assertOk()
             ->assertInertia(fn (Assert $page) => $page->component('Auth/Login'));
     }
+
+    public function test_the_initial_page_data_is_rendered_for_the_inertia_v3_client(): void
+    {
+        $this->get(route('login'))
+            ->assertOk()
+            ->assertSee('<script data-page="app" type="application/json">', false);
+    }
 }
