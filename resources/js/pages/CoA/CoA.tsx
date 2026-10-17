@@ -3,6 +3,23 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Plus, Search, Pencil, Trash2 } from "lucide-react";
 import React, { useMemo, useState } from "react";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog";
+import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 
 type ChartAccount = {
     code: string;
@@ -11,6 +28,26 @@ type ChartAccount = {
     reportPosition: "NRC" | "LPR";
     openingBalance: number;
 };
+
+type CoAType = {
+    label: string;
+    value: string;
+};
+
+type PosLaporanType = {
+    label: string;
+    value: string;
+};
+
+const typeAccount: CoAType[] = [
+    { label: "Debit", value: "Db" },
+    { label: "Kredit", value: "Kr" },
+];
+
+const posLaporan: PosLaporanType[] = [
+    { label: "Neraca", value: "NRC" },
+    { label: "Laporan", value: "LR" },
+];
 
 const accounts: ChartAccount[] = [
     {
@@ -128,22 +165,26 @@ const summaryCards = [
     },
     {
         label: "Aset",
-        count: accounts.filter((account) => account.code.startsWith("1")).length,
+        count: accounts.filter((account) => account.code.startsWith("1"))
+            .length,
         borderColor: "border-l-emerald-500",
     },
     {
         label: "Kewajiban",
-        count: accounts.filter((account) => account.code.startsWith("2")).length,
+        count: accounts.filter((account) => account.code.startsWith("2"))
+            .length,
         borderColor: "border-l-amber-500",
     },
     {
         label: "Pendapatan",
-        count: accounts.filter((account) => account.code.startsWith("4")).length,
+        count: accounts.filter((account) => account.code.startsWith("4"))
+            .length,
         borderColor: "border-l-indigo-500",
     },
     {
         label: "Beban",
-        count: accounts.filter((account) => account.code.startsWith("5")).length,
+        count: accounts.filter((account) => account.code.startsWith("5"))
+            .length,
         borderColor: "border-l-rose-500",
     },
 ];
@@ -173,7 +214,7 @@ const CoA = () => {
         <div>
             <section
                 aria-label="Ringkasan akun"
-                className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-5"
+                className="grid grid-cols-2 gap-4 md:grid-cols-2 lg:grid-cols-5"
             >
                 {summaryCards.map((card) => (
                     <div
@@ -219,13 +260,123 @@ const CoA = () => {
                                 className="h-9 pl-9 text-xs"
                             />
                         </div>
-                        <Button
-                            type="button"
-                            className="shrink-0 bg-indigo-600 text-xs font-bold text-white hover:bg-indigo-700"
-                        >
-                            <Plus aria-hidden="true" />
-                            Tambah Akun Baru
-                        </Button>
+                        <Dialog>
+                            <DialogTrigger>
+                                <Button
+                                    type="button"
+                                    className="shrink-0 bg-indigo-600 text-xs font-bold text-white hover:bg-indigo-700"
+                                >
+                                    <Plus aria-hidden="true" />
+                                    Tambah Akun Baru
+                                </Button>
+                            </DialogTrigger>
+                            <DialogContent>
+                                <DialogHeader>
+                                    <DialogTitle>
+                                        Tambah Akun Baru (CoA)
+                                    </DialogTitle>
+                                    <DialogDescription></DialogDescription>
+                                </DialogHeader>
+                                <form>
+                                    <FieldGroup>
+                                        <Field>
+                                            <FieldLabel>Kode Akun</FieldLabel>
+                                            <Input
+                                                id="code"
+                                                type="text"
+                                                required
+                                            />
+                                        </Field>
+                                        <Field>
+                                            <FieldLabel>Nama Akun</FieldLabel>
+                                            <Input
+                                                id="name"
+                                                type="text"
+                                                required
+                                            />
+                                        </Field>
+                                        <div className="flex items-stretch gap-4">
+                                            <Field>
+                                                <FieldLabel>
+                                                    Pos Saldo
+                                                </FieldLabel>
+                                                <Select>
+                                                    <SelectTrigger className="w-45">
+                                                        <SelectValue placeholder="Pos Saldo" />
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        <SelectGroup>
+                                                            {typeAccount.map(
+                                                                (item) => (
+                                                                    <SelectItem
+                                                                        key={
+                                                                            item.value
+                                                                        }
+                                                                        value={
+                                                                            item.value
+                                                                        }
+                                                                    >
+                                                                        {`${item.label} - ${item.value}`}
+                                                                    </SelectItem>
+                                                                ),
+                                                            )}
+                                                        </SelectGroup>
+                                                    </SelectContent>
+                                                </Select>
+                                            </Field>
+                                            <Field>
+                                                <FieldLabel>
+                                                    Pos Laporan
+                                                </FieldLabel>
+                                                <Select>
+                                                    <SelectTrigger className="w-45">
+                                                        <SelectValue placeholder="Pos Saldo" />
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        <SelectGroup>
+                                                            {posLaporan.map(
+                                                                (item) => (
+                                                                    <SelectItem
+                                                                        key={
+                                                                            item.value
+                                                                        }
+                                                                        value={
+                                                                            item.value
+                                                                        }
+                                                                    >
+                                                                        {`${item.label} - ${item.value}`}
+                                                                    </SelectItem>
+                                                                ),
+                                                            )}
+                                                        </SelectGroup>
+                                                    </SelectContent>
+                                                </Select>
+                                            </Field>
+                                        </div>
+                                        <Field>
+                                            <FieldLabel>
+                                                Saldo Awal Debet
+                                            </FieldLabel>
+                                            <Input
+                                                id="saldo_awal_debit"
+                                                type="number"
+                                                required
+                                            />
+                                        </Field>
+                                        <Field>
+                                            <FieldLabel>
+                                                Saldo Awal Kredit
+                                            </FieldLabel>
+                                            <Input
+                                                id="saldo_awal_kredit"
+                                                type="text"
+                                                required
+                                            />
+                                        </Field>
+                                    </FieldGroup>
+                                </form>
+                            </DialogContent>
+                        </Dialog>
                     </div>
                 </div>
 
@@ -272,7 +423,8 @@ const CoA = () => {
                                         <td className="p-3">
                                             <span
                                                 className={`rounded px-2 py-0.5 font-mono text-xs font-bold ${
-                                                    account.normalBalance === "Db"
+                                                    account.normalBalance ===
+                                                    "Db"
                                                         ? "bg-slate-200 text-slate-800"
                                                         : "bg-slate-800 text-white"
                                                 }`}
@@ -283,7 +435,8 @@ const CoA = () => {
                                         <td className="p-3 font-mono text-xs">
                                             <span
                                                 className={`rounded px-2 py-0.5 font-bold ${
-                                                    account.reportPosition === "NRC"
+                                                    account.reportPosition ===
+                                                    "NRC"
                                                         ? "bg-indigo-100 text-indigo-800"
                                                         : "bg-amber-100 text-amber-800"
                                                 }`}
