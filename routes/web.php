@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -12,8 +13,9 @@ Route::get('/', function () {
 Route::get('/login', function () {
     return Inertia::render('Auth/Login');
 })->name('login');
+Route::post('/login', [AuthController::class, 'store']);
 
-Route::prefix('dashboard')->name('dashboard.')->group(function () {
+Route::middleware('auth:sanctum')->prefix('dashboard')->name('dashboard.')->group(function () {
     Route::get('/', function () {
         return Inertia::render('Dashboard/Dashboard');
     })->name('index');
@@ -21,4 +23,8 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
     Route::get('/coa', function () {
         return Inertia::render('CoA/CoA');
     })->name('coa');
+
+    Route::get('/jurnalUmum', function () {
+        return Inertia::render('JurnalUmum/JurnalUmum');
+    })->name('jurnalUmum');
 });

@@ -86,12 +86,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     </SidebarMenuItem>
                     <SidebarMenuItem>
                         <SidebarMenuButton
-                            isActive={isPathActive(pathname, "/member")}
-                            //   render={<NavLink to='/dashboard/member' />}
+                            isActive={isPathActive(
+                                pathname,
+                                "/dashboard/jurnalUmum",
+                            )}
                             className="h-10 gap-3 px-3 text-sm"
                             asChild
                         >
-                            <Link href="/dashboard/member">
+                            <Link href="/dashboard/jurnalUmum">
                                 <Notebook aria-hidden="true" />
                                 <span>Input Jurnal Umum</span>
                             </Link>
