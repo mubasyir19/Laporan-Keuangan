@@ -31,7 +31,6 @@ class AccountSeeder extends Seeder
                 'sub_type' => 'Kas dan Setara Kas',
                 'normal_balance' => 'Db',
                 'report_pos' => 'NRC',
-                'opening_balance' => 11401376,
             ],
             [
                 'code' => '11021',
@@ -40,7 +39,6 @@ class AccountSeeder extends Seeder
                 'sub_type' => 'Kas dan Setara Kas',
                 'normal_balance' => 'Db',
                 'report_pos' => 'NRC',
-                'opening_balance' => 970000,
             ],
             [
                 'code' => '11022',
@@ -49,7 +47,6 @@ class AccountSeeder extends Seeder
                 'sub_type' => 'Kas dan Setara Kas',
                 'normal_balance' => 'Db',
                 'report_pos' => 'NRC',
-                'opening_balance' => 0,
             ],
             [
                 'code' => '11023',
@@ -58,7 +55,6 @@ class AccountSeeder extends Seeder
                 'sub_type' => 'Kas dan Setara Kas',
                 'normal_balance' => 'Db',
                 'report_pos' => 'NRC',
-                'opening_balance' => 194300724.05,
             ],
             [
                 'code' => '11024',
@@ -67,7 +63,6 @@ class AccountSeeder extends Seeder
                 'sub_type' => 'Kas dan Setara Kas',
                 'normal_balance' => 'Db',
                 'report_pos' => 'NRC',
-                'opening_balance' => 123887221.07,
             ],
             [
                 'code' => '11025',
@@ -76,7 +71,6 @@ class AccountSeeder extends Seeder
                 'sub_type' => 'Kas dan Setara Kas',
                 'normal_balance' => 'Db',
                 'report_pos' => 'NRC',
-                'opening_balance' => 0,
             ],
             [
                 'code' => '31011',
@@ -85,7 +79,6 @@ class AccountSeeder extends Seeder
                 'sub_type' => 'Aset Neto',
                 'normal_balance' => 'Kr',
                 'report_pos' => 'NRC',
-                'opening_balance' => 333734771.12,
             ],
             [
                 'code' => '41012',
@@ -94,7 +87,6 @@ class AccountSeeder extends Seeder
                 'sub_type' => 'Donasi',
                 'normal_balance' => 'Kr',
                 'report_pos' => 'LPR',
-                'opening_balance' => 0,
             ],
             [
                 'code' => '41014',
@@ -103,7 +95,6 @@ class AccountSeeder extends Seeder
                 'sub_type' => 'Donasi',
                 'normal_balance' => 'Kr',
                 'report_pos' => 'LPR',
-                'opening_balance' => 0,
             ],
             [
                 'code' => '41017',
@@ -112,7 +103,6 @@ class AccountSeeder extends Seeder
                 'sub_type' => 'Donasi',
                 'normal_balance' => 'Kr',
                 'report_pos' => 'LPR',
-                'opening_balance' => 0,
             ],
             [
                 'code' => '41018',
@@ -121,7 +111,6 @@ class AccountSeeder extends Seeder
                 'sub_type' => 'Donasi',
                 'normal_balance' => 'Kr',
                 'report_pos' => 'LPR',
-                'opening_balance' => 0,
             ],
             [
                 'code' => '43012',
@@ -130,7 +119,6 @@ class AccountSeeder extends Seeder
                 'sub_type' => 'Pendapatan Lain-lain',
                 'normal_balance' => 'Kr',
                 'report_pos' => 'LPR',
-                'opening_balance' => 0,
             ],
             [
                 'code' => '51011',
@@ -139,7 +127,6 @@ class AccountSeeder extends Seeder
                 'sub_type' => 'Beban Operasional',
                 'normal_balance' => 'Db',
                 'report_pos' => 'LPR',
-                'opening_balance' => 0,
             ],
             [
                 'code' => '51018',
@@ -148,7 +135,6 @@ class AccountSeeder extends Seeder
                 'sub_type' => 'Beban Operasional',
                 'normal_balance' => 'Db',
                 'report_pos' => 'LPR',
-                'opening_balance' => 0,
             ],
             [
                 'code' => '52016',
@@ -157,14 +143,11 @@ class AccountSeeder extends Seeder
                 'sub_type' => 'Beban Program',
                 'normal_balance' => 'Db',
                 'report_pos' => 'LPR',
-                'opening_balance' => 0,
             ],
         ];
 
         foreach ($foundations as $foundation) {
             foreach ($accounts as $account) {
-                $openingBalance = $account['opening_balance'];
-
                 Account::updateOrCreate(
                     [
                         'foundation_id' => $foundation->id,
@@ -176,8 +159,8 @@ class AccountSeeder extends Seeder
                         'sub_type' => $account['sub_type'],
                         'normal_balance' => $account['normal_balance'],
                         'report_pos' => $account['report_pos'],
-                        'saldo_awal_debit' => $account['normal_balance'] === 'Db' ? $openingBalance : 0,
-                        'saldo_awal_kredit' => $account['normal_balance'] === 'Kr' ? $openingBalance : 0,
+                        'saldo_awal_debit' => 0,
+                        'saldo_awal_kredit' => 0,
                         'parent_id' => null,
                         'end_date' => null,
                     ],

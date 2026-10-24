@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             FoundationSeeder::class,
             AccountSeeder::class,
+            AccountingPeriodSeeder::class,
+            AccountOpeningBalanceSeeder::class,
         ]);
 
         // User::factory(10)->create();

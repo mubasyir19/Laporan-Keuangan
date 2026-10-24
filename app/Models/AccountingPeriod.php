@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class AccountingPeriod extends Model
 {
@@ -28,5 +29,10 @@ class AccountingPeriod extends Model
     public function foundation(): BelongsTo
     {
         return $this->belongsTo(Foundation::class, 'foundation_id');
+    }
+
+    public function openingBalances(): HasMany
+    {
+        return $this->hasMany(AccountOpeningBalance::class);
     }
 }

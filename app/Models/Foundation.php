@@ -30,6 +30,11 @@ class Foundation extends Model
         return $this->hasMany(AccountingPeriod::class);
     }
 
+    public function accountOpeningBalances(): HasMany
+    {
+        return $this->hasMany(AccountOpeningBalance::class);
+    }
+
     public function journalEntries(): HasMany
     {
         return $this->hasMany(JournalEntry::class);
