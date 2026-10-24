@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date('entry_date');
             $table->text('description')->nullable();
             $table->enum('status', ['draft', 'posted', 'void'])->default('posted');
-            $table->foreignId('created_by')->constrained('users');
+            $table->foreignUuid('created_by')->constrained('users');
             $table->timestamps();
 
             $table->unique(['foundation_id', 'entry_number']);

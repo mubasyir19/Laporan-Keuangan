@@ -14,12 +14,6 @@ import {
     SidebarRail,
 } from "./ui/sidebar";
 
-const educationItems = [
-    { title: "Universitas", url: "/dashboard/education/universitas" },
-    { title: "Fakultas", url: "/dashboard/education/fakultas" },
-    { title: "Jurusan", url: "/dashboard/education/jurusan" },
-];
-
 const sampleFoundations: Foundation[] = [
     { id: "1", name: "Yayasan Pendidikan Jaya", code: "YPJ-001" },
     { id: "2", name: "Yayasan Peduli Bangsa", code: "YPB-002" },
