@@ -1,6 +1,7 @@
 import {
     Book,
     BookOpen,
+    Check,
     ChevronDown,
     FileChartColumn,
     Gauge,
@@ -26,11 +27,19 @@ import {
     SidebarRail,
 } from "./ui/sidebar";
 import { Link, usePage } from "@inertiajs/react";
+import { FoundationSwitcher } from "./FoundationSwitcher";
+import { Foundation } from "@/types";
 
 const educationItems = [
     { title: "Universitas", url: "/dashboard/education/universitas" },
     { title: "Fakultas", url: "/dashboard/education/fakultas" },
     { title: "Jurusan", url: "/dashboard/education/jurusan" },
+];
+
+const sampleFoundations: Foundation[] = [
+    { id: "1", name: "Yayasan Pendidikan Jaya", code: "YPJ-001" },
+    { id: "2", name: "Yayasan Peduli Bangsa", code: "YPB-002" },
+    { id: "3", name: "Yayasan Masa Depan Cerah", code: "YMDC-003" },
 ];
 
 function isPathActive(pathname: string, url: string) {
@@ -43,6 +52,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     const pathname = url.split("?")[0];
     const [educationOpen, setEducationOpen] = useState(() =>
         pathname.startsWith("/education"),
+    );
+
+    const [activeFoundation, setActiveFoundation] = useState<Foundation>(
+        sampleFoundations[0],
     );
 
     return (
@@ -71,6 +84,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
             <SidebarContent className="px-3 py-4">
                 <SidebarMenu className="gap-1">
+                    <FoundationSwitcher
+                        foundations={sampleFoundations}
+                        activeFoundation={activeFoundation}
+                        onSwitchFoundation={(selected) =>
+                            setActiveFoundation(selected)
+                        }
+                    />
                     <SidebarMenuItem>
                         <SidebarMenuButton
                             isActive={isPathActive(pathname, "/dashboard")}
@@ -152,64 +172,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                         </SidebarMenuButton>
                     </SidebarMenuItem>
                 </SidebarMenu>
-                <SidebarGroup className="p-0">
-                    <SidebarGroupLabel className="h-8 px-3 text-[11px] font-medium uppercase tracking-[0.12em] text-muted-foreground">
-                        Data utama
-                    </SidebarGroupLabel>
-                    <SidebarGroupContent>
-                        <SidebarMenu className="gap-1">
-                            <SidebarMenuItem>
-                                <SidebarMenuButton
-                                    isActive={isPathActive(
-                                        pathname,
-                                        "/education",
-                                    )}
-                                    onClick={() =>
-                                        setEducationOpen(
-                                            (open: boolean) => !open,
-                                        )
-                                    }
-                                    aria-expanded={educationOpen}
-                                    className="h-10 gap-3 px-3 text-sm"
-                                >
-                                    <GraduationCap aria-hidden="true" />
-                                    <span>Pendidikan</span>
-                                    <ChevronDown
-                                        className={`ml-auto size-4 text-muted-foreground transition-transform ${educationOpen ? "rotate-180" : ""}`}
-                                        aria-hidden="true"
-                                    />
-                                </SidebarMenuButton>
-                                {educationOpen && (
-                                    <SidebarMenuSub className="ml-5 mt-1 border-sidebar-border pl-3">
-                                        {educationItems.map((item) => (
-                                            <SidebarMenuSubItem key={item.url}>
-                                                <SidebarMenuSubButton
-                                                    isActive={isPathActive(
-                                                        pathname,
-                                                        item.url,
-                                                    )}
-                                                    // render={
-                                                    //     <NavLink
-                                                    //         to={item.url}
-                                                    //     />
-                                                    // }
-                                                    className="text-muted-foreground"
-                                                    asChild
-                                                >
-                                                    <Link href={item.url}>
-                                                        <span>
-                                                            {item.title}
-                                                        </span>
-                                                    </Link>
-                                                </SidebarMenuSubButton>
-                                            </SidebarMenuSubItem>
-                                        ))}
-                                    </SidebarMenuSub>
-                                )}
-                            </SidebarMenuItem>
-                        </SidebarMenu>
-                    </SidebarGroupContent>
-                </SidebarGroup>
             </SidebarContent>
 
             <SidebarRail />
