@@ -1,34 +1,18 @@
-import {
-    Book,
-    BookOpen,
-    Check,
-    ChevronDown,
-    FileChartColumn,
-    Gauge,
-    GraduationCap,
-    Notebook,
-    Users,
-} from "lucide-react";
+import { Book, BookOpen, FileChartColumn, Gauge, Notebook } from "lucide-react";
 import { useState } from "react";
 // import { NavLink, useLocation } from "react-router";
+import { Foundation } from "@/types";
+import { Link, usePage } from "@inertiajs/react";
+import { FoundationSwitcher } from "./FoundationSwitcher";
 import {
     Sidebar,
     SidebarContent,
-    SidebarGroup,
-    SidebarGroupContent,
-    SidebarGroupLabel,
     SidebarHeader,
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
-    SidebarMenuSub,
-    SidebarMenuSubButton,
-    SidebarMenuSubItem,
     SidebarRail,
 } from "./ui/sidebar";
-import { Link, usePage } from "@inertiajs/react";
-import { FoundationSwitcher } from "./FoundationSwitcher";
-import { Foundation } from "@/types";
 
 const educationItems = [
     { title: "Universitas", url: "/dashboard/education/universitas" },

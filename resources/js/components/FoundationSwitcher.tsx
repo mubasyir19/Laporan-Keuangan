@@ -1,4 +1,4 @@
-import React from "react";
+import { Button } from "@/components/ui/button";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -8,9 +8,8 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
-import { ChevronDown, Check } from "lucide-react";
 import { Foundation } from "@/types";
+import { Check, ChevronDown } from "lucide-react";
 
 interface FoundationSwitcherProps {
     foundations: Foundation[];
